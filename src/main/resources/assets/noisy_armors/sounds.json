@@ -1,0 +1,35 @@
+{
+  "armor_move": {
+    "subtitle": "subtitles.noisy_armors.armor_move",
+    "sounds": [
+      {
+        "name": "noisy_armors:armor_move/clip_01",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_02",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_03",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_06",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_07",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_09",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move/clip_10",
+        "stream": false
+      }
+    ]
+  }
+}

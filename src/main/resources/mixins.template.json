@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.vomiter.noisy_armors.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "NearestTargetAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "noisy_armors.mixins.refmap.json"
+}
