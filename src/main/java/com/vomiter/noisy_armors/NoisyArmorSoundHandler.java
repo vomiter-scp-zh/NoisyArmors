@@ -1,7 +1,9 @@
 package com.vomiter.noisy_armors;
 
 import com.vomiter.noisy_armors.mixin.NearestTargetAccessor;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -12,12 +14,12 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class NoisyArmorSoundHandler {
     private static final int CHECK_INTERVAL = 6;
-
     private static final Map<UUID, NoiseState> STATES = new ConcurrentHashMap<>();
 
     @SubscribeEvent
@@ -35,8 +37,8 @@ public final class NoisyArmorSoundHandler {
         ItemStack from = event.getFrom();
         ItemStack to = event.getTo();
 
-        boolean fromTagged = !from.isEmpty() && from.is(NoisyArmorsMod.NOISY_ARMOR_TAG);
-        boolean toTagged = !to.isEmpty() && to.is(NoisyArmorsMod.NOISY_ARMOR_TAG);
+        boolean fromTagged = !from.isEmpty() && from.is(NoisyArmorTags.TAG_NOISY_ARMOR);
+        boolean toTagged = !to.isEmpty() && to.is(NoisyArmorTags.TAG_NOISY_ARMOR);
 
         if (!fromTagged && !toTagged) {
             return;
@@ -98,15 +100,19 @@ public final class NoisyArmorSoundHandler {
         float volume = Mth.clamp((float) (averageHorizontalSpeed * 18.0D), 0.15F, 0.9F) * 0.25F;
         float pitch = 0.75F + ((living.getRandom().nextFloat() - 0.5f) * 0.1F);
 
-        living.level().playSound(
-                null,
-                living.blockPosition(),
-                NoisyArmorsMod.ARMOR_MOVE.get(),
-                living.getSoundSource(),
-                volume,
-                pitch
-        );
-        if(living instanceof Player player){
+        if(!(living instanceof Player player) || Config.PLAYER_ARMOR_MAKES_SOUND){
+            var armorSound = state.getRandomSound(living.getRandom());
+            if(armorSound != null) living.level().playSound(
+                    null,
+                    living.blockPosition(),
+                    armorSound,
+                    living.getSoundSource(),
+                    volume,
+                    pitch
+            );
+        }
+
+        if(living instanceof Player player && Config.ARMOR_SOUND_ATTRACTS_HOSTILE_MOBS){
             var range = player.getBoundingBox().inflate(16);
             player.level().getEntities(player, range, entity -> {
                 if(!(entity instanceof Mob mob)) return false;
@@ -169,6 +175,11 @@ public final class NoisyArmorSoundHandler {
         return 36;
     }
 
+    private static SoundEvent fromArmorToArmorSound(ItemStack stack){
+        if(!stack.is(NoisyArmorTags.TAG_NOISY_ARMOR)) return null;
+        return NoisyArmorSounds.ARMOR_MOVE.get();
+    }
+
     private static int isWearingNoisyArmor(LivingEntity living) {
         int i = 0;
         for (EquipmentSlot slot : new EquipmentSlot[]{
@@ -178,7 +189,7 @@ public final class NoisyArmorSoundHandler {
                 EquipmentSlot.FEET
         }) {
             ItemStack stack = living.getItemBySlot(slot);
-            if (!stack.isEmpty() && stack.is(NoisyArmorsMod.NOISY_ARMOR_TAG)) {
+            if (!stack.isEmpty() && stack.is(NoisyArmorTags.TAG_NOISY_ARMOR)) {
                 i++;
             }
         }
@@ -199,5 +210,13 @@ public final class NoisyArmorSoundHandler {
         private long lastSampleTick = -1L;
         private double lastX;
         private double lastZ;
+        private Set<SoundEvent> armorSounds;
+        SoundEvent getRandomSound(RandomSource random) {
+            return armorSounds.stream()
+                    .skip(random.nextInt(armorSounds.size()))
+                    .findFirst()
+                    .orElse(null);
+        }
+
     }
 }
