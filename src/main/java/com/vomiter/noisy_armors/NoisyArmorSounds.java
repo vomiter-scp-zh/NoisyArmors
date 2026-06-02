@@ -23,7 +23,7 @@ public class NoisyArmorSounds {
     );
     public static final List<RegistryObject<SoundEvent>> ARMOR_MOVE_CUSTOM = new ArrayList<>();
     static {
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             int finalI = i;
             ARMOR_MOVE_CUSTOM.add(
                     SOUND_EVENTS.register(
