@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -45,7 +46,8 @@ public final class NoisyArmorSoundHandler {
         }
 
         UUID id = living.getUUID();
-        int i = isWearingNoisyArmor(living);
+        Set<SoundEvent> sounds = new HashSet<>();
+        int i = isWearingNoisyArmor(living, sounds);
 
         if (i > 0) {
             NoiseState state = STATES.computeIfAbsent(id, k -> new NoiseState());
@@ -55,6 +57,7 @@ public final class NoisyArmorSoundHandler {
             state.lastSampleTick = gameTime;
             state.lastX = living.getX();
             state.lastZ = living.getZ();
+            state.armorSounds = sounds;
             if (state.nextPlaySoundTick < gameTime) {
                 state.nextPlaySoundTick = gameTime;
             }
@@ -102,6 +105,7 @@ public final class NoisyArmorSoundHandler {
 
         if(!(living instanceof Player player) || Config.PLAYER_ARMOR_MAKES_SOUND){
             var armorSound = state.getRandomSound(living.getRandom());
+            if (armorSound == NoisyArmorSounds.ARMOR_MOVE_CRYSTAL.get()) volume = volume * 1.5f;
             if(armorSound != null) living.level().playSound(
                     null,
                     living.blockPosition(),
@@ -177,10 +181,14 @@ public final class NoisyArmorSoundHandler {
 
     private static SoundEvent fromArmorToArmorSound(ItemStack stack){
         if(!stack.is(NoisyArmorTags.TAG_NOISY_ARMOR)) return null;
+        if(stack.is(NoisyArmorTags.TAG_NOISY_ARMOR_CRYSTAL)) return NoisyArmorSounds.ARMOR_MOVE_CRYSTAL.get();
+        for (int i = 0; i < 10; i++) {
+            if(stack.is(NoisyArmorTags.TAG_CUSTOM.get(i))) return NoisyArmorSounds.ARMOR_MOVE_CUSTOM.get(1).get();
+        }
         return NoisyArmorSounds.ARMOR_MOVE.get();
     }
 
-    private static int isWearingNoisyArmor(LivingEntity living) {
+    private static int isWearingNoisyArmor(LivingEntity living, Set<SoundEvent> set) {
         int i = 0;
         for (EquipmentSlot slot : new EquipmentSlot[]{
                 EquipmentSlot.HEAD,
@@ -191,6 +199,7 @@ public final class NoisyArmorSoundHandler {
             ItemStack stack = living.getItemBySlot(slot);
             if (!stack.isEmpty() && stack.is(NoisyArmorTags.TAG_NOISY_ARMOR)) {
                 i++;
+                set.add(fromArmorToArmorSound(stack));
             }
         }
         return i;

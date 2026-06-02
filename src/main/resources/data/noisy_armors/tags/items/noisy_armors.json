@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "minecraft:iron_helmet",
-    "minecraft:iron_chestplate",
-    "minecraft:iron_leggings",
-    "minecraft:iron_boots",
-    "minecraft:golden_helmet",
-    "minecraft:golden_chestplate",
-    "minecraft:golden_leggings",
-    "minecraft:golden_boots",
-    "minecraft:netherite_helmet",
-    "minecraft:netherite_chestplate",
-    "minecraft:netherite_leggings",
-    "minecraft:netherite_boots"
+    "#noisy_armors:noisy_armors_metal",
+    "#noisy_armors:noisy_armors_crystal",
+    "#noisy_armors:noisy_armors_custom1",
+    "#noisy_armors:noisy_armors_custom2",
+    "#noisy_armors:noisy_armors_custom3",
+    "#noisy_armors:noisy_armors_custom4",
+    "#noisy_armors:noisy_armors_custom5",
+    "#noisy_armors:noisy_armors_custom6",
+    "#noisy_armors:noisy_armors_custom7",
+    "#noisy_armors:noisy_armors_custom8",
+    "#noisy_armors:noisy_armors_custom9",
+    "#noisy_armors:noisy_armors_custom10"
   ]
 }

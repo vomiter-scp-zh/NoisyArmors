@@ -31,5 +31,94 @@
         "stream": false
       }
     ]
+  },
+  "armor_move_crystal": {
+    "subtitle": "subtitles.noisy_armors.armor_move_crystal",
+    "sounds": [
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_01",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_02",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_03",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_06",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_07",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_09",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_10",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_11",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_12",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_13",
+        "stream": false
+      },
+      {
+        "name": "noisy_armors:armor_move_crystal/clip_14",
+        "stream": false
+      }
+    ]
+  },
+  "armor_move_custom1": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom1",
+    "sounds": []
+  },
+  "armor_move_custom2": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom2",
+    "sounds": []
+  },
+  "armor_move_custom3": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom3",
+    "sounds": []
+  },
+  "armor_move_custom4": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom4",
+    "sounds": []
+  },
+  "armor_move_custom5": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom5",
+    "sounds": []
+  },
+  "armor_move_custom6": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom6",
+    "sounds": []
+  },
+  "armor_move_custom7": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom7",
+    "sounds": []
+  },
+  "armor_move_custom8": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom8",
+    "sounds": []
+  },
+  "armor_move_custom9": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom9",
+    "sounds": []
+  },
+  "armor_move_custom10": {
+    "subtitle": "subtitles.noisy_armors.armor_move_custom10",
+    "sounds": []
   }
 }
